@@ -20,26 +20,34 @@ def populate():
 
     python_pages = [
         {'title': 'Official Python Tutorial',
-         'url': 'http://docs.python.org/3/tutorial/'},
+         'url': 'http://docs.python.org/3/tutorial/',
+         'views': 100, },
         {'title': 'How to Think like a Computer Scientist',
-         'url': 'http://www.greenteapress.com/thinkpython/'},
+         'url': 'http://www.greenteapress.com/thinkpython/',
+         'views': 45},
         {'title': 'Learn Python in 10 Minutes',
-         'url': 'http://www.korokithakis.net/tutorials/python/'}]
+         'url': 'http://www.korokithakis.net/tutorials/python/',
+         'views': 18}]
 
     django_pages = [
         {'title': 'Official Django Tutorial',
-         'url': 'https://docs.djangoproject.com/en/2.1/intro/tutorial01/'},
+         'url': 'https://docs.djangoproject.com/en/2.1/intro/tutorial01/',
+         'views': 13},
         {'title': 'Django Rocks',
-         'url': 'http://www.djangorocks.com/'},
+         'url': 'http://www.djangorocks.com/',
+         'views': 12},
         {'title': 'How to Tango with Django',
-         'url': 'http://www.tangowithdjango.com/'}
+         'url': 'http://www.tangowithdjango.com/',
+         'views': 11}
     ]
 
     other_pages = [
         {'title': 'Bottle',
-         'url': 'http://bottlepy.org/docs/dev/'},
+         'url': 'http://bottlepy.org/docs/dev/',
+         'views': 3},
         {'title': 'Flask',
-         'url': 'http://flask.pocoo.org'}]
+         'url': 'http://flask.pocoo.org',
+         'views': 2}]
 
     cats = {'Python': {'pages': python_pages, 'views': 128, 'likes': 64},
             'Django': {'pages': django_pages, 'views': 64, 'likes': 32},
@@ -51,7 +59,7 @@ def populate():
     for cat, cat_data in cats.items():
         c = add_cat(cat, views=cat_data['views'], likes=cat_data['likes'])
         for p in cat_data['pages']:
-            add_page(c, p['title'], p['url'])
+            add_page(c, p['title'], p['url'], p['views'])
 
     # Print out the categories we have added.
     for c in Category.objects.all():
