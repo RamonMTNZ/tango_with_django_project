@@ -16,16 +16,16 @@ def index(request):
     context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
-    # Render the response and send it back!
+
     return render(request, 'rango/index.html', context=context_dict)
 
 
 def about(request):
 
-    context_dict = {'boldmessage': 'Crunchy, creamy, cookie, candy, cupcake!'}
+    print(request.method)
+    print(request.user)
 
-
-    return render(request, 'rango/about.html', context=context_dict)
+    return render(request, 'rango/about.html', {})
 
 
 def show_category(request, category_name_slug):
@@ -54,7 +54,7 @@ def add_category(request):
 
         if form.is_valid():
             form.save(commit=True)
-            return redirect('/rango/')
+            return redirect(reverse('rango:index'))
         else:
             print(form.errors)
     return render(request, 'rango/add_category.html', {'form':form})
@@ -67,7 +67,7 @@ def add_page(request, category_name_slug):
         category= None
 
     if category is None:
-        return redirect('/rango/')
+        return redirect(reverse('rango:index'))
 
     form = PageForm()
 
