@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from rango.bing_search import run_query
 from rango.models import Category
 from rango.models import Page
 from rango.forms import CategoryForm
@@ -96,18 +98,9 @@ def add_page(request, category_name_slug):
     return render(request, 'rango/add_page.html', context=context_dict)
 
 
-
-
-
-
-
-
 @login_required
 def restricted(request):
     return render(request, 'rango/restricted.html', {})
-
-
-
 
 
 def get_server_side_cookie(request, cookie, default_val=None):
@@ -135,3 +128,16 @@ def visitor_cookie_handler(request):
         request.session['last_visit'] = last_visit_cookie
     # Update/set the visits cookie
     request.session['visits'] = visits
+
+
+def search(request):
+    result_list = []
+    result_term = ""
+
+    if request.method == 'POST':
+        query = request.POST['query'].strip()
+        if query:
+            result_list = run_query(query)
+            result_term = query
+
+    return render(request, 'rango/search.html', {'result_list': result_list, 'result_term': result_term})
