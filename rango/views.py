@@ -22,7 +22,15 @@ def index(request):
 
     visitor_cookie_handler(request)
 
+
+
+    # Independent work (not in book)
+
+    if (request.META.get('HTTP_REFERER')=="http://127.0.0.1:8000/accounts/login/"):
+        print("this is happening")
+        context_dict['from_login'] = True
     response = render(request, 'rango/index.html', context=context_dict)
+
     return response
 
 
@@ -141,3 +149,6 @@ def search(request):
             result_term = query
 
     return render(request, 'rango/search.html', {'result_list': result_list, 'result_term': result_term})
+
+
+

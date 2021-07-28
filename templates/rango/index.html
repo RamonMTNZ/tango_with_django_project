@@ -6,6 +6,7 @@ Homepage
 {% endblock %}
 
 {% block body_block %}
+
 <div class="jumbotron p-4">
     <div class="container">
         <h1 class="jumbotron-heading">Rango says...</h1>
@@ -22,6 +23,21 @@ Homepage
     </div>
 </div>
 
+<div>
+    {% if from_login %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        Successfully logged in as {{ user.username }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+</div>
+<form action='actionUrl' method='GET'>
+<input type="submit" class="btn btn-info" value="Submit Button">
+</form>
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-6">
@@ -34,7 +50,8 @@ Homepage
                         {% for category in categories %}
                         <li class="list-group-item">
                             <a href="{% url 'rango:show_category' category.slug %}">
-                                {{ category.name }}</a>
+                                {{ category.name }}  </a>
+                            <span class="badge badge-light">Likes: {{ category.likes }}</span>
                         </li>
                         {% endfor %}
                     </ul>
@@ -71,5 +88,7 @@ Homepage
 <div>
     <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" />
 </div>
+
+
 
 {% endblock %}
